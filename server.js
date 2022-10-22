@@ -17,7 +17,7 @@ const PORT = process.env.PORT || 3001;
 
 // Set up basic response
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("Itunes API!");
 });
 
 // start the express web server listening on 3001
