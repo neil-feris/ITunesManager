@@ -24,11 +24,14 @@ router.get("/", (req, res) => {
     // strip the trailing ampersand
     queryString = queryString.slice(0, -1);
 
-    // Make a fetch request to the baseURL with the query and store the result in the result variable
+    // Make a fetch request to the baseURL with the query and store the result in the result variable if there is an error, return a status 500 (Internal Server Error) and the error message
     fetch(`${baseURL}&${queryString}`)
       .then((res) => res.json())
       .then((result) => {
         res.send(result);
+      })
+      .catch((err) => {
+        res.status(500).send(err);
       });
   }
 });
