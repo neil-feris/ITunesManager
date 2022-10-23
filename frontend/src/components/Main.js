@@ -90,6 +90,7 @@ function Main() {
       .then((response) => response.json())
       .then((data) => {
         setSearchResults(data.results);
+        console.log(data.results);
       });
   };
 
@@ -107,16 +108,50 @@ function Main() {
     setCurrentSearchTerm(event.target.value);
   };
 
-  // const getSearchTypesFromMediaType = (mediaType) => {
-  //   return searchTypes[mediaType];
-  // };
+  const [favourites, setFavourites] = useState([]);
+
+  useEffect(() => {
+    // if there are no favourites, return
+    if (!localStorage.getItem("favourites")) return;
+    const favourites = JSON.parse(localStorage.getItem("favourites"));
+    setFavourites(favourites);
+  }, []);
+
+  const handleFavourite = (result) => {
+    // check if result is already in favourites by checking the trackId
+    const isFavourite = favourites.some(
+      (favourite) => favourite.trackId === result.trackId
+    );
+    if (isFavourite) {
+      // remove from favourites
+      const newFavourites = favourites.filter(
+        (favourite) => favourite.trackId !== result.trackId
+      );
+      setFavourites(newFavourites);
+      localStorage.setItem("favourites", JSON.stringify(newFavourites));
+      alert("Removed from favourites");
+    } else {
+      // add to favourites
+      setFavourites([...favourites, result]);
+      localStorage.setItem(
+        "favourites",
+        JSON.stringify([...favourites, result])
+      );
+      alert("Added to favourites");
+    }
+  };
 
   return (
     <Container>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <Typography variant="h4" component="div" gutterBottom>
+            <Typography
+              sx={{ mt: 2 }}
+              variant="h4"
+              component="div"
+              gutterBottom
+            >
               Search iTunes
             </Typography>
           </Grid>
@@ -251,10 +286,94 @@ function Main() {
                           sx={{ m: 2 }}
                           variant="contained"
                           onClick={() => {
-                            console.log("Add to favourites");
+                            handleFavourite(result);
                           }}
                         >
                           Add to favourites
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                );
+              })}
+            </Grid>
+          </Grid>
+        </Grid>
+      </Box>
+
+      <Box sx={{ mt: 2, flexGrow: 1 }}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Typography variant="h5" component="div" gutterBottom>
+              Favourites
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Grid container spacing={2}>
+              {favourites.map((result, idx) => {
+                return (
+                  <Grid key={idx} item xs={12} sm={6} md={4} lg={3}>
+                    <Card sx={{ m: 1 }}>
+                      <CardHeader
+                        sx={{
+                          height: 100,
+                        }}
+                        title={
+                          <Typography
+                            variant="h6"
+                            component="div"
+                            overflow="hidden"
+                            textOverflow="ellipsis"
+                            gutterBottom
+                          >
+                            {result.trackName}
+                          </Typography>
+                        }
+                      />
+
+                      <CardContent>
+                        <CardMedia
+                          component="img"
+                          height="100"
+                          width="100"
+                          image={result.artworkUrl100}
+                          alt={result.trackName}
+                        />
+                        <Typography variant="body2" color="text.secondary">
+                          {result.artistName}
+                        </Typography>
+                        {/* if mediaType is movie, musicVideo, shortFilm, or tvShow or searchType is musicVideo show video element with previewurl */}
+                        {(currentMediaType === "movie" ||
+                          currentMediaType === "musicVideo" ||
+                          currentMediaType === "shortFilm" ||
+                          currentMediaType === "tvShow" ||
+                          currentSearchType === "musicVideo") && (
+                          <video
+                            controls
+                            src={result.previewUrl}
+                            width="100%"
+                            height="auto"
+                          ></video>
+                        )}
+                        {/* if searchType is musicTrack or allTrack show audio element with previewurl */}
+                        {(currentSearchType === "musicTrack" ||
+                          currentSearchType === "allTrack") && (
+                          <audio
+                            controls
+                            src={result.previewUrl}
+                            width="100%"
+                            height="auto"
+                          ></audio>
+                        )}
+                        {/* remove from favourites button */}
+                        <Button
+                          sx={{ m: 2 }}
+                          variant="contained"
+                          onClick={() => {
+                            handleFavourite(result);
+                          }}
+                        >
+                          Remove from favourites
                         </Button>
                       </CardContent>
                     </Card>
