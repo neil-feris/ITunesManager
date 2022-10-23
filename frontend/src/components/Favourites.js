@@ -13,10 +13,19 @@ import {
   CardActions,
   Button,
   Container,
+  Link,
 } from "@mui/material";
 
 function Favourites() {
   const favourites = JSON.parse(localStorage.getItem("favourites")) || [];
+
+  const handleRemove = (id) => {
+    const newFavourites = favourites.filter(
+      (favourite) => favourite.trackId !== id
+    );
+    localStorage.setItem("favourites", JSON.stringify(newFavourites));
+    window.location.reload();
+  };
 
   // if there are no favourites, display a message
   // otherwise, display the favourites
@@ -39,6 +48,7 @@ function Favourites() {
             favourites.map((favourite, idx) => (
               <Grid item xs={12} sm={6} md={4} lg={3} key={idx}>
                 <Card sx={{ m: 1 }}>
+                  {/* console log favourite */ console.log(favourite)}
                   <CardHeader
                     sx={{
                       height: 100,
@@ -57,21 +67,36 @@ function Favourites() {
                   />
                   <CardMedia
                     component="img"
-                    height="140"
+                    height="270"
                     image={favourite.artworkUrl100}
                     alt={favourite.trackName}
                   />
                   <CardContent>
                     <Typography gutterBottom variant="body1" component="div">
-                      {favourite.artistName}
+                      <Link
+                        underline="none"
+                        href={favourite.artistViewUrl}
+                        target="_blank"
+                      >
+                        {favourite.artistName}
+                      </Link>
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      {favourite.description}
+                      {favourite.collectionName}
                     </Typography>
+                    <Link href={favourite.collectionViewUrl} target="_blank">
+                      <Button variant="contained" sx={{ mt: 2 }}>
+                        View on iTunes
+                      </Button>
+                    </Link>
                   </CardContent>
                   <CardActions>
-                    <Button size="small">Share</Button>
-                    <Button size="small">Learn More</Button>
+                    <Button
+                      onClick={() => handleRemove(favourite.trackId)}
+                      size="small"
+                    >
+                      Remove from favourites
+                    </Button>
                   </CardActions>
                 </Card>
               </Grid>

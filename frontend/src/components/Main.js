@@ -238,7 +238,7 @@ function Main() {
                           <Typography
                             variant="h6"
                             component="div"
-                            overflow="hidden"
+                            
                             textOverflow="ellipsis"
                             gutterBottom
                           >
@@ -247,14 +247,13 @@ function Main() {
                         }
                       />
 
-                      <CardContent>
                         <CardMedia
                           component="img"
-                          height="100"
-                          width="100"
+                          height="210"
                           image={result.artworkUrl100}
                           alt={result.trackName}
                         />
+                      <CardContent>
                         <Typography variant="body2" color="text.secondary">
                           {result.artistName}
                         </Typography>
