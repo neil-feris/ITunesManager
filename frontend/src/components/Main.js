@@ -97,7 +97,12 @@ function Main() {
       .then((response) => response.json())
       .then((data) => {
         setSearchResults(data.results);
-        // console.log(data.results[0]);
+        if (data.resultCount === 0) {
+          alert("No results found");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
       });
     setLoading(false);
   };
