@@ -1,4 +1,4 @@
-// render the favourites from localStorage
+// render the favourites from sessionStorage
 
 import React from "react";
 
@@ -17,13 +17,13 @@ import {
 } from "@mui/material";
 
 function Favourites() {
-  const favourites = JSON.parse(localStorage.getItem("favourites")) || [];
+  const favourites = JSON.parse(sessionStorage.getItem("favourites")) || [];
 
   const handleRemove = (id) => {
     const newFavourites = favourites.filter(
       (favourite) => favourite.trackId !== id
     );
-    localStorage.setItem("favourites", JSON.stringify(newFavourites));
+    sessionStorage.setItem("favourites", JSON.stringify(newFavourites));
     window.location.reload();
   };
 

@@ -21,7 +21,7 @@ function Result({ result, handleFavourite }) {
 
   // checks if the result is in the favourites array
   const isFavourite = () => {
-    const favourites = JSON.parse(localStorage.getItem("favourites")) || [];
+    const favourites = JSON.parse(sessionStorage.getItem("favourites")) || [];
     return favourites.some((favourite) => favourite.trackId === result.trackId);
   };
 

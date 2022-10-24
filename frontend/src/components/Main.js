@@ -120,8 +120,8 @@ function Main() {
 
   useEffect(() => {
     // if there are no favourites, return
-    if (!localStorage.getItem("favourites")) return;
-    const favourites = JSON.parse(localStorage.getItem("favourites"));
+    if (!sessionStorage.getItem("favourites")) return;
+    const favourites = JSON.parse(sessionStorage.getItem("favourites"));
     setFavourites(favourites);
   }, []);
 
@@ -142,12 +142,12 @@ function Main() {
         (favourite) => favourite.trackId !== result.trackId
       );
       setFavourites(newFavourites);
-      localStorage.setItem("favourites", JSON.stringify(newFavourites));
+      sessionStorage.setItem("favourites", JSON.stringify(newFavourites));
       alert("Removed from favourites");
     } else {
       // add to favourites
       setFavourites([...favourites, result]);
-      localStorage.setItem(
+      sessionStorage.setItem(
         "favourites",
         JSON.stringify([...favourites, result])
       );
