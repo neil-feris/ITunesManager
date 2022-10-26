@@ -3,8 +3,6 @@
 import React from "react";
 
 import {
-  Grid,
-  Box,
   Typography,
   Card,
   CardHeader,
@@ -12,25 +10,49 @@ import {
   CardMedia,
   CardActions,
   Button,
-  Container,
-  Link,
 } from "@mui/material";
 
-function Result({ result, handleFavourite, favourites, setFavourites }) {
+function Result({ result, favourites, setFavourites }) {
   // console.log(result);
-
-  // checks if the result is in the favourites array
-  const isFavourite = () => {
-    
-    return favourites.some((favourite) => {
-      console.log(favourite, favourite.wrapperType);
-      if (favourite.wrapperType === "track")
+  const isFavourite = favourites.some(
+    // if wrapperType is track, use trackId, if collection use collectionId, if artist use artistId
+    (favourite) => {
+      if (result.wrapperType === "track")
         return favourite.trackId === result.trackId;
-      if (favourite.wrapperType === "collection")
+      if (result.wrapperType === "collection")
         return favourite.collectionId === result.collectionId;
-      if (favourite.wrapperType === "artist")
+      if (result.wrapperType === "artist")
         return favourite.artistId === result.artistId;
-    });
+      return false;
+    }
+  );
+
+  const handleFavourite = (result) => {
+    // check if result is already in favourites by checking the trackId
+    if (isFavourite) {
+      // remove from favourites
+      const newFavourites = favourites.filter((favourite) => {
+        console.log("Fav: ", favourite);
+        if (result.wrapperType === "track")
+          return favourite.trackId !== result.trackId;
+        if (result.wrapperType === "collection")
+          return favourite.collectionId !== result.collectionId;
+        if (result.wrapperType === "artist")
+          return favourite.artistId !== result.artistId;
+        return false;
+      });
+      setFavourites(newFavourites);
+      sessionStorage.setItem("favourites", JSON.stringify(newFavourites));
+      // alert("Removed from favourites");
+    } else {
+      // add to favourites
+      setFavourites([...favourites, result]);
+      sessionStorage.setItem(
+        "favourites",
+        JSON.stringify([...favourites, result])
+      );
+      // alert("Added to favourites");
+    }
   };
 
   return (
@@ -125,7 +147,7 @@ function Result({ result, handleFavourite, favourites, setFavourites }) {
           onClick={() => handleFavourite(result)}
         >
           {/* if not in favourites text shows add to favourites else remove from favourites */}
-          {isFavourite() ? "Remove from favourites" : "Add to favourites"}
+          {isFavourite ? "Remove from favourites" : "Add to favourites"}
         </Button>
       </CardActions>
     </Card>

@@ -7,12 +7,6 @@ import {
   Typography,
   Input,
   Select,
-  Card,
-  CardContent,
-  CardMedia,
-  CardHeader,
-  CardActions,
-  CardActionArea,
   Button,
 } from "@mui/material";
 
@@ -31,8 +25,6 @@ function Main() {
     { ebook: "Ebook" },
     { all: "All" },
   ];
-
-  const [loading, setLoading] = useState(false);
 
   const searchTypes = {
     movie: [{ movieArtist: "Artist" }, { movie: "Movie" }],
@@ -90,7 +82,6 @@ function Main() {
     console.log(
       `Search URL: /api?term=${currentSearchTerm}&media=${currentMediaType}&entity=${currentSearchType} `
     );
-    setLoading(true);
     fetch(
       `/api?term=${currentSearchTerm}&media=${currentMediaType}&entity=${currentSearchType}`
     )
@@ -104,7 +95,6 @@ function Main() {
       .catch((error) => {
         console.log(error);
       });
-    setLoading(false);
   };
 
   const handleSearchTypeChange = (event) => {
@@ -141,47 +131,6 @@ function Main() {
     // Object.keys returns an array of keys which is the search type as required by API. Object.values returns the formatted string for display
     setCurrentSearchType(Object.keys(currentSearchTypes[0])[0]);
   }, [currentSearchTypes]);
-
-  const handleFavourite = (result) => {
-    // check if result is already in favourites by checking the trackId
-    const isFavourite = favourites.some(
-      // if wrapperType is track, use trackId, if collection use collectionId, if artist use artistId
-      (favourite) => {
-        if (result.wrapperType === "track")
-          return favourite.trackId === result.trackId;
-        if (result.wrapperType === "collection")
-          return favourite.collectionId === result.collectionId;
-        if (result.wrapperType === "artist")
-          return favourite.artistId === result.artistId;
-        return false;
-      }
-    );
-
-    if (isFavourite) {
-      // remove from favourites
-      const newFavourites = favourites.filter((favourite) => {
-        console.log("Fav: ", favourite);
-        if (result.wrapperType === "track")
-          return favourite.trackId !== result.trackId;
-        if (result.wrapperType === "collection")
-          return favourite.collectionId !== result.collectionId;
-        if (result.wrapperType === "artist")
-          return favourite.artistId !== result.artistId;
-        return false;
-      });
-      setFavourites(newFavourites);
-      sessionStorage.setItem("favourites", JSON.stringify(newFavourites));
-      alert("Removed from favourites");
-    } else {
-      // add to favourites
-      setFavourites([...favourites, result]);
-      sessionStorage.setItem(
-        "favourites",
-        JSON.stringify([...favourites, result])
-      );
-      alert("Added to favourites");
-    }
-  };
 
   return (
     <Container>
@@ -274,12 +223,10 @@ function Main() {
                   {
                     // map search results
                     searchResults.map((result, idx) => {
-                      console.log(result, idx);
                       return (
                         <Grid item xs={12} sm={6} md={4} key={idx}>
                           <Result
                             result={result}
-                            handleFavourite={handleFavourite}
                             favourites={favourites}
                             setFavourites={setFavourites}
                           />
