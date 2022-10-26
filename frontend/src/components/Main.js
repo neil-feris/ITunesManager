@@ -116,6 +116,8 @@ function Main() {
 
   const handleMediaTypeChange = (event) => {
     setCurrentMediaType(event.target.value);
+    // update search type options
+    setCurrentSearchTypes(searchTypes[event.target.value]);
 
     // clear results
     setSearchResults([]);
@@ -151,6 +153,7 @@ function Main() {
           return favourite.collectionId === result.collectionId;
         if (result.wrapperType === "artist")
           return favourite.artistId === result.artistId;
+        return false;
       }
     );
 
@@ -164,6 +167,7 @@ function Main() {
           return favourite.collectionId !== result.collectionId;
         if (result.wrapperType === "artist")
           return favourite.artistId !== result.artistId;
+        return false;
       });
       setFavourites(newFavourites);
       sessionStorage.setItem("favourites", JSON.stringify(newFavourites));
@@ -269,10 +273,10 @@ function Main() {
                 <Grid container spacing={2}>
                   {
                     // map search results
-                    searchResults.map((result) => {
-                      // console.log(result);
+                    searchResults.map((result, idx) => {
+                      console.log(result, idx);
                       return (
-                        <Grid item xs={12} sm={6} md={4} key={result.trackId}>
+                        <Grid item xs={12} sm={6} md={4} key={idx}>
                           <Result
                             result={result}
                             handleFavourite={handleFavourite}
