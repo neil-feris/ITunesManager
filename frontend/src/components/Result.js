@@ -16,13 +16,21 @@ import {
   Link,
 } from "@mui/material";
 
-function Result({ result, handleFavourite }) {
-  console.log(result);
+function Result({ result, handleFavourite, favourites, setFavourites }) {
+  // console.log(result);
 
   // checks if the result is in the favourites array
   const isFavourite = () => {
-    const favourites = JSON.parse(sessionStorage.getItem("favourites")) || [];
-    return favourites.some((favourite) => favourite.trackId === result.trackId);
+    
+    return favourites.some((favourite) => {
+      console.log(favourite, favourite.wrapperType);
+      if (favourite.wrapperType === "track")
+        return favourite.trackId === result.trackId;
+      if (favourite.wrapperType === "collection")
+        return favourite.collectionId === result.collectionId;
+      if (favourite.wrapperType === "artist")
+        return favourite.artistId === result.artistId;
+    });
   };
 
   return (

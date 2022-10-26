@@ -109,12 +109,16 @@ function Main() {
 
   const handleSearchTypeChange = (event) => {
     setCurrentSearchType(event.target.value);
+    // clear results
+    setSearchResults([]);
+    console.log(currentSearchType);
   };
 
   const handleMediaTypeChange = (event) => {
     setCurrentMediaType(event.target.value);
-    // update search type options
-    setCurrentSearchTypes(searchTypes[event.target.value]);
+
+    // clear results
+    setSearchResults([]);
   };
 
   const handleSearchTermChange = (event) => {
@@ -139,13 +143,28 @@ function Main() {
   const handleFavourite = (result) => {
     // check if result is already in favourites by checking the trackId
     const isFavourite = favourites.some(
-      (favourite) => favourite.trackId === result.trackId
+      // if wrapperType is track, use trackId, if collection use collectionId, if artist use artistId
+      (favourite) => {
+        if (result.wrapperType === "track")
+          return favourite.trackId === result.trackId;
+        if (result.wrapperType === "collection")
+          return favourite.collectionId === result.collectionId;
+        if (result.wrapperType === "artist")
+          return favourite.artistId === result.artistId;
+      }
     );
+
     if (isFavourite) {
       // remove from favourites
-      const newFavourites = favourites.filter(
-        (favourite) => favourite.trackId !== result.trackId
-      );
+      const newFavourites = favourites.filter((favourite) => {
+        console.log("Fav: ", favourite);
+        if (result.wrapperType === "track")
+          return favourite.trackId !== result.trackId;
+        if (result.wrapperType === "collection")
+          return favourite.collectionId !== result.collectionId;
+        if (result.wrapperType === "artist")
+          return favourite.artistId !== result.artistId;
+      });
       setFavourites(newFavourites);
       sessionStorage.setItem("favourites", JSON.stringify(newFavourites));
       alert("Removed from favourites");
@@ -257,6 +276,8 @@ function Main() {
                           <Result
                             result={result}
                             handleFavourite={handleFavourite}
+                            favourites={favourites}
+                            setFavourites={setFavourites}
                           />
                         </Grid>
                       );
