@@ -2,19 +2,7 @@
 
 import React from "react";
 
-import {
-  Grid,
-  Box,
-  Typography,
-  Card,
-  CardHeader,
-  CardContent,
-  CardMedia,
-  CardActions,
-  Button,
-  Container,
-  Link,
-} from "@mui/material";
+import { Grid, Box, Typography, Container } from "@mui/material";
 import Result from "./Result";
 
 function Favourites({ favourites, setFavourites }) {
