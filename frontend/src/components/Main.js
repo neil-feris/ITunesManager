@@ -12,7 +12,7 @@ import {
 
 import Result from "./Result";
 
-function Main() {
+function Main({ favourites, setFavourites }) {
   const mediaTypes = [
     { movie: "Movie" },
     { podcast: "Podcast" },
@@ -79,9 +79,6 @@ function Main() {
   const [searchResults, setSearchResults] = useState([]);
 
   const handleSearch = () => {
-    console.log(
-      `Search URL: /api?term=${currentSearchTerm}&media=${currentMediaType}&entity=${currentSearchType} `
-    );
     fetch(
       `/api?term=${currentSearchTerm}&media=${currentMediaType}&entity=${currentSearchType}`
     )
@@ -93,7 +90,7 @@ function Main() {
         }
       })
       .catch((error) => {
-        console.log(error);
+        alert("Error: " + error);
       });
   };
 
@@ -101,7 +98,6 @@ function Main() {
     setCurrentSearchType(event.target.value);
     // clear results
     setSearchResults([]);
-    console.log(currentSearchType);
   };
 
   const handleMediaTypeChange = (event) => {
@@ -116,15 +112,6 @@ function Main() {
   const handleSearchTermChange = (event) => {
     setCurrentSearchTerm(event.target.value);
   };
-
-  const [favourites, setFavourites] = useState([]);
-
-  useEffect(() => {
-    // if there are no favourites, return
-    if (!sessionStorage.getItem("favourites")) return;
-    const favourites = JSON.parse(sessionStorage.getItem("favourites"));
-    setFavourites(favourites);
-  }, []);
 
   // set currentSearchType to first option in currentSearchTypes
   useEffect(() => {
@@ -240,37 +227,6 @@ function Main() {
           )}
         </Grid>
       </Box>
-      {/* If there are favourites display a list with Result items */}
-      {favourites.length > 0 && (
-        <>
-          <Grid item xs={12}>
-            <hr />
-            <Typography
-              sx={{ mt: 3, textAlign: "center" }}
-              variant="h4"
-              component="div"
-              gutterBottom
-            >
-              Your Favourites
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Grid container spacing={2}>
-              {favourites.map((result, idx) => {
-                return (
-                  <Grid item xs={12} sm={6} md={4} key={idx}>
-                    <Result
-                      result={result}
-                      favourites={favourites}
-                      setFavourites={setFavourites}
-                    />
-                  </Grid>
-                );
-              })}
-            </Grid>
-          </Grid>
-        </>
-      )}
     </Container>
   );
 }

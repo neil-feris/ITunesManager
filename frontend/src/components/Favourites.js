@@ -15,99 +15,61 @@ import {
   Container,
   Link,
 } from "@mui/material";
+import Result from "./Result";
 
-function Favourites() {
-  const favourites = JSON.parse(sessionStorage.getItem("favourites")) || [];
-
-  const handleRemove = (id) => {
-    const newFavourites = favourites.filter(
-      (favourite) => favourite.trackId !== id
-    );
-    sessionStorage.setItem("favourites", JSON.stringify(newFavourites));
-    window.location.reload();
-  };
+function Favourites({ favourites, setFavourites }) {
+  // const favourites = JSON.parse(sessionStorage.getItem("favourites")) || [];
 
   // if there are no favourites, display a message
-  // otherwise, display the favourites
+  // otherwise, display the favourites using Result component
+
   return (
-    // if there are no favourites, display a message
-    // otherwise, display the favourites
     <Container>
-      <Grid item xs={12}>
+      <Box sx={{ flexGrow: 1, mt: 3 }}>
         <Grid container spacing={2}>
-          {favourites.length === 0 ? (
+          {favourites.length === 0 && (
             <Grid item xs={12}>
-              <Box sx={{ textAlign: "center" }}>
-                <Typography variant="h4" component="h1">
-                  No favourites yet
-                </Typography>
-              </Box>
+              <Typography
+                sx={{ textAlign: "center" }}
+                variant="h4"
+                component="div"
+                gutterBottom
+              >
+                No favourites yet
+              </Typography>
             </Grid>
-          ) : (
-            // display the favourites
-            favourites.map((favourite, idx) => (
-              <Grid item xs={12} sm={6} md={4} lg={3} key={idx}>
-                <Card sx={{ m: 1 }}>
-                  {
-                    /* console log favourite */ console.log(
-                      favourite.wrapperType
-                    )
-                  }
-                  <CardHeader
-                    sx={{
-                      height: 100,
-                    }}
-                    title={
-                      <Typography
-                        variant="h6"
-                        component="div"
-                        overflow="hidden"
-                        textOverflow="ellipsis"
-                        gutterBottom
-                      >
-                        {favourite.trackName}
-                      </Typography>
-                    }
-                  />
-                  <CardMedia
-                    component="img"
-                    height="270"
-                    image={favourite.artworkUrl100}
-                    alt={favourite.trackName}
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="body1" component="div">
-                      <Link
-                        underline="none"
-                        href={favourite.artistViewUrl}
-                        target="_blank"
-                      >
-                        {favourite.artistName}
-                      </Link>
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {favourite.collectionName}
-                    </Typography>
-                    <Link href={favourite.collectionViewUrl} target="_blank">
-                      <Button variant="contained" sx={{ mt: 2 }}>
-                        View on iTunes
-                      </Button>
-                    </Link>
-                  </CardContent>
-                  <CardActions>
-                    <Button
-                      onClick={() => handleRemove(favourite.trackId)}
-                      size="small"
-                    >
-                      Remove from favourites
-                    </Button>
-                  </CardActions>
-                </Card>
+          )}
+          {favourites.length > 0 && (
+            <>
+              <Grid item xs={12}>
+                <Typography
+                  sx={{ textAlign: "center" }}
+                  variant="h4"
+                  component="div"
+                  gutterBottom
+                >
+                  Your Favourites
+                </Typography>
               </Grid>
-            ))
+              <Grid item xs={12}>
+                <Grid container spacing={2}>
+                  {favourites.map((result, idx) => {
+                    return (
+                      <Grid item xs={12} sm={6} md={4} key={idx}>
+                        <Result
+                          result={result}
+                          favourites={favourites}
+                          setFavourites={setFavourites}
+                        />
+                      </Grid>
+                    );
+                  })}
+                </Grid>
+              </Grid>
+            </>
           )}
         </Grid>
-      </Grid>
+      </Box>
     </Container>
   );
 }

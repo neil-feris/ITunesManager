@@ -13,7 +13,6 @@ import {
 } from "@mui/material";
 
 function Result({ result, favourites, setFavourites }) {
-  // console.log(result);
   const isFavourite = favourites.some(
     // if wrapperType is track, use trackId, if collection use collectionId, if artist use artistId
     (favourite) => {
@@ -32,7 +31,6 @@ function Result({ result, favourites, setFavourites }) {
     if (isFavourite) {
       // remove from favourites
       const newFavourites = favourites.filter((favourite) => {
-        console.log("Fav: ", favourite);
         if (result.wrapperType === "track")
           return favourite.trackId !== result.trackId;
         if (result.wrapperType === "collection")
