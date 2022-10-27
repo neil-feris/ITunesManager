@@ -28,7 +28,7 @@ function Result({ result, favourites, setFavourites }) {
   );
 
   const handleFavourite = (result) => {
-    // check if result is already in favourites by checking the trackId
+    // check if result is already in favourites
     if (isFavourite) {
       // remove from favourites
       const newFavourites = favourites.filter((favourite) => {
@@ -59,7 +59,7 @@ function Result({ result, favourites, setFavourites }) {
     <Card sx={{ m: 1 }}>
       <CardHeader
         sx={{
-          height: 100,
+          height: 150,
         }}
         title={
           <Typography variant="h6" component="div">
@@ -127,17 +127,34 @@ function Result({ result, favourites, setFavourites }) {
         )}
       </CardContent>
       <CardActions>
-        <Button
-          size="small"
-          sx={{ mx: "auto", my: 1 }}
-          variant="contained"
-          color="primary"
-          href={result.trackViewUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          View on iTunes
-        </Button>
+        {/* if trackViewUrl */}
+        {result.trackViewUrl && (
+          <Button
+            size="small"
+            sx={{ mx: "auto", my: 1 }}
+            variant="contained"
+            color="primary"
+            href={result.trackViewUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View on iTunes
+          </Button>
+        )}
+        {/* if collectionViewUrl and no trackViewUrl */}
+        {result.collectionViewUrl && !result.trackViewUrl && (
+          <Button
+            size="small"
+            sx={{ mx: "auto", my: 1 }}
+            variant="contained"
+            color="primary"
+            href={result.collectionViewUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View on iTunes
+          </Button>
+        )}
         {/* add to favourites */}
         <Button
           size="small"

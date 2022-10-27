@@ -134,7 +134,7 @@ function Main() {
 
   return (
     <Container>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{ flexGrow: 1, mb: 3 }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Typography
@@ -240,6 +240,37 @@ function Main() {
           )}
         </Grid>
       </Box>
+      {/* If there are favourites display a list with Result items */}
+      {favourites.length > 0 && (
+        <>
+          <Grid item xs={12}>
+            <hr />
+            <Typography
+              sx={{ mt: 3, textAlign: "center" }}
+              variant="h4"
+              component="div"
+              gutterBottom
+            >
+              Your Favourites
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Grid container spacing={2}>
+              {favourites.map((result, idx) => {
+                return (
+                  <Grid item xs={12} sm={6} md={4} key={idx}>
+                    <Result
+                      result={result}
+                      favourites={favourites}
+                      setFavourites={setFavourites}
+                    />
+                  </Grid>
+                );
+              })}
+            </Grid>
+          </Grid>
+        </>
+      )}
     </Container>
   );
 }

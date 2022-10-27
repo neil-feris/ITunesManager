@@ -48,7 +48,11 @@ function Favourites() {
             favourites.map((favourite, idx) => (
               <Grid item xs={12} sm={6} md={4} lg={3} key={idx}>
                 <Card sx={{ m: 1 }}>
-                  {/* console log favourite */ console.log(favourite)}
+                  {
+                    /* console log favourite */ console.log(
+                      favourite.wrapperType
+                    )
+                  }
                   <CardHeader
                     sx={{
                       height: 100,
