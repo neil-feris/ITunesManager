@@ -13,7 +13,7 @@ function Header() {
           sx={{ flexGrow: 1, fontFamily: "Montserrat Alternates" }}
         >
           <Link href="/" color="inherit" underline="none">
-            iTunes Manager
+            Media Favourites Manager
           </Link>
         </Typography>
         <Link

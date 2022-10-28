@@ -4,3 +4,18 @@
   font-family: "Lora", serif !important;
   text-align: center;
 }
+
+.MuiTypography-h6 {
+  font-family: "Montserrat Alternates", sans-serif !important;
+  font-weight: 700 !important;
+  text-align: center;
+}
+
+.MuiButtonBase-root {
+  font-family: "Montserrat Alternates", sans-serif !important;
+}
+
+.MuiTypography-body2 {
+  font-family: "Montserrat Alternates", sans-serif !important;
+  text-align: center;
+}

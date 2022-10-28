@@ -12,6 +12,10 @@ import {
   Button,
 } from "@mui/material";
 
+// import thumbsUp and thumbsUp off icon from mui-icons
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
+
 function Result({ result, favourites, setFavourites }) {
   const isFavourite = favourites.some(
     // if wrapperType is track, use trackId, if collection use collectionId, if artist use artistId
@@ -79,7 +83,7 @@ function Result({ result, favourites, setFavourites }) {
         }
       />
       {/* if artworkUrl100 is there */}
-      {result.artworkUrl100 ? (
+      {result.artworkUrl100 && result.kind === "song" ? (
         <CardMedia
           component="img"
           height="270"
@@ -160,9 +164,10 @@ function Result({ result, favourites, setFavourites }) {
           variant="contained"
           color="secondary"
           onClick={() => handleFavourite(result)}
+          startIcon={isFavourite ? <ThumbUpIcon /> : <ThumbUpOffAltIcon />}
         >
           {/* if not in favourites text shows add to favourites else remove from favourites */}
-          {isFavourite ? "Remove from favourites" : "Add to favourites"}
+          {isFavourite ? "Remove " : "Add "}
         </Button>
       </CardActions>
     </Card>
