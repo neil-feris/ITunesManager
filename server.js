@@ -12,6 +12,10 @@ const path = require("path");
 // import api router
 const api = require("./api");
 
+// import cors for heroku
+const cors = require("cors");
+app.use(cors());
+
 // Set up api route
 app.use("/api", api);
 
