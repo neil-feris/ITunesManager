@@ -6,6 +6,9 @@ const app = express();
 const helmet = require("helmet");
 app.use(helmet());
 
+// import path
+const path = require("path");
+
 // import api router
 const api = require("./api");
 
