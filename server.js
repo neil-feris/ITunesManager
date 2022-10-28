@@ -18,10 +18,10 @@ app.use("/api", api);
 // read port from environment variable or use 3001
 const PORT = process.env.PORT || 3001;
 
-// Set up basic response
-app.get("/", (req, res) => {
-  res.send("Itunes API!");
-});
+// // Set up basic response
+// app.get("/", (req, res) => {
+//   res.send("Itunes API!");
+// });
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "frontend/build")));
