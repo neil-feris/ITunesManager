@@ -7,12 +7,21 @@ function Header() {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
+        <Typography
+          variant="h5"
+          component="div"
+          sx={{ flexGrow: 1, fontFamily: "Montserrat Alternates" }}
+        >
           <Link href="/" color="inherit" underline="none">
             iTunes Manager
           </Link>
         </Typography>
-        <Link href="/favourites" color="inherit" underline="none">
+        <Link
+          sx={{ fontFamily: "Montserrat Alternates" }}
+          href="/favourites"
+          color="inherit"
+          underline="none"
+        >
           Favourites
         </Link>
       </Toolbar>

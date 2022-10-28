@@ -1,0 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat+Alternates:wght@400;700&display=swap");
+
+.MuiTypography-h4 {
+  font-family: "Lora", serif !important;
+  text-align: center;
+}
