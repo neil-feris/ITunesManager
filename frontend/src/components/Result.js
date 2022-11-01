@@ -1,7 +1,9 @@
 // displays a single result formatted depending on the type of result
 
+// import React
 import React from "react";
 
+// import mui components
 import {
   Typography,
   Card,
@@ -16,7 +18,8 @@ import {
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 
-function Result({ result, favourites, setFavourites }) {
+export default function Result({ result, favourites, setFavourites }) {
+  // isFavourite checks if the result is in the favourites array depending on wrapperType
   const isFavourite = favourites.some(
     // if wrapperType is track, use trackId, if collection use collectionId, if artist use artistId
     (favourite) => {
@@ -43,17 +46,15 @@ function Result({ result, favourites, setFavourites }) {
           return favourite.artistId !== result.artistId;
         return false;
       });
-      setFavourites(newFavourites);
-      sessionStorage.setItem("favourites", JSON.stringify(newFavourites));
-      // alert("Removed from favourites");
+      setFavourites(newFavourites); // update favourites state
+      sessionStorage.setItem("favourites", JSON.stringify(newFavourites)); // update favourites in session storage
     } else {
       // add to favourites
-      setFavourites([...favourites, result]);
+      setFavourites([...favourites, result]); // update favourites state
       sessionStorage.setItem(
         "favourites",
         JSON.stringify([...favourites, result])
-      );
-      // alert("Added to favourites");
+      ); // update favourites in session storage
     }
   };
 
@@ -83,7 +84,8 @@ function Result({ result, favourites, setFavourites }) {
         }
       />
       {/* if artworkUrl100 is there */}
-      {result.artworkUrl100 && result.kind === "song" ? (
+      {result.artworkUrl100 &&
+      (result.kind === "song" || result.collectionType === "Album") ? (
         <CardMedia
           component="img"
           height="270"
@@ -173,5 +175,3 @@ function Result({ result, favourites, setFavourites }) {
     </Card>
   );
 }
-
-export default Result;

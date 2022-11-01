@@ -1,9 +1,11 @@
 // Header.js renders the header bar of the App
 import React from "react";
 
+// import mui components
 import { AppBar, Toolbar, Typography, Link } from "@mui/material";
 
-function Header() {
+export default function Header() {
+  // Render the header bar of the App with links to home and favourites
   return (
     <AppBar position="static">
       <Toolbar>
@@ -28,5 +30,3 @@ function Header() {
     </AppBar>
   );
 }
-
-export default Header;

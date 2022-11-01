@@ -1,5 +1,7 @@
+// import React and useState and useEffect hooks from react
 import React, { useState, useEffect } from "react";
 
+// import mui components
 import {
   Box,
   Container,
@@ -10,9 +12,13 @@ import {
   Button,
 } from "@mui/material";
 
+// import Result component
 import Result from "./Result";
 
-function Main({ favourites, setFavourites }) {
+// Main renders the select elements, search input, search button and results
+export default function Main({ favourites, setFavourites }) {
+  // Declare state variables
+  // mediaTypes stores the media type options with the display value and the value to be passed to the API
   const mediaTypes = [
     { movie: "Movie" },
     { podcast: "Podcast" },
@@ -26,6 +32,7 @@ function Main({ favourites, setFavourites }) {
     { all: "All" },
   ];
 
+  // searchTypes stores the search type options with the display value and the value to be passed to the API
   const searchTypes = {
     movie: [{ movieArtist: "Artist" }, { movie: "Movie" }],
 
@@ -76,31 +83,40 @@ function Main({ favourites, setFavourites }) {
     searchTypes[currentMediaType]
   ); // default search types
 
+  // searchResults stores the results from the API
   const [searchResults, setSearchResults] = useState([]);
 
+  // handleSearch runs when search button is clicked or Enter key is pressed.
   const handleSearch = () => {
+    // fetch data from the API
     fetch(
       `/api?term=${currentSearchTerm}&media=${currentMediaType}&entity=${currentSearchType}`
     )
-      .then((response) => response.json())
+      .then((response) => response.json()) // convert response to json
       .then((data) => {
-        setSearchResults(data.results);
+        setSearchResults(data.results); // set searchResults to the results from the API
         if (data.resultCount === 0) {
+          // if there are no results display a message
           alert("No results found");
         }
       })
       .catch((error) => {
+        // if there is an error display a message
         alert("Error: " + error);
       });
   };
 
+  // handleSearchTypeChange runs when the search type select element is changed
   const handleSearchTypeChange = (event) => {
+    // set currentSearchType to the value of the selected option
     setCurrentSearchType(event.target.value);
     // clear results
     setSearchResults([]);
   };
 
+  // handleMediaTypeChange runs when the media type select element is changed
   const handleMediaTypeChange = (event) => {
+    // set currentMediaType to the value of the selected option
     setCurrentMediaType(event.target.value);
     // update search type options
     setCurrentSearchTypes(searchTypes[event.target.value]);
@@ -109,11 +125,13 @@ function Main({ favourites, setFavourites }) {
     setSearchResults([]);
   };
 
+  // handleSearchTermChange runs when the search term input element is changed
   const handleSearchTermChange = (event) => {
+    // set currentSearchTerm to the value of the input
     setCurrentSearchTerm(event.target.value);
   };
 
-  // set currentSearchType to first option in currentSearchTypes
+  // set currentSearchType to first option in currentSearchTypes whenever currentSearchTypes changes
   useEffect(() => {
     // Object.keys returns an array of keys which is the search type as required by API. Object.values returns the formatted string for display
     setCurrentSearchType(Object.keys(currentSearchTypes[0])[0]);
@@ -149,6 +167,7 @@ function Main({ favourites, setFavourites }) {
                 // map media types
                 mediaTypes.map((mediaType) => {
                   return (
+                    // Object.keys returns an array of keys which is the media type as required by API. Object.values returns the formatted string for display
                     <option
                       key={Object.keys(mediaType)}
                       value={Object.keys(mediaType)}
@@ -236,5 +255,3 @@ function Main({ favourites, setFavourites }) {
     </Container>
   );
 }
-
-export default Main;

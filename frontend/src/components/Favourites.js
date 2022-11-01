@@ -1,20 +1,20 @@
-// render the favourites from sessionStorage
+// render the favourites list
 
+// import React
 import React from "react";
 
+// import mui components
 import { Grid, Box, Typography, Container } from "@mui/material";
+
+// import Result component
 import Result from "./Result";
 
-function Favourites({ favourites, setFavourites }) {
-  // const favourites = JSON.parse(sessionStorage.getItem("favourites")) || [];
-
-  // if there are no favourites, display a message
-  // otherwise, display the favourites using Result component
-
+export default function Favourites({ favourites, setFavourites }) {
   return (
     <Container>
-      <Box sx={{ flexGrow: 1, mt: 3 }}>
+      <Box sx={{ flexGrow: 1, my: 3 }}>
         <Grid container spacing={2}>
+          {/* If there are no favourites display a message */}
           {favourites.length === 0 && (
             <Grid item xs={12}>
               <Typography
@@ -41,6 +41,7 @@ function Favourites({ favourites, setFavourites }) {
               </Grid>
               <Grid item xs={12}>
                 <Grid container spacing={2}>
+                  {/* Map through the favourites array and render a Result component for each item */}
                   {favourites.map((result, idx) => {
                     return (
                       <Grid item xs={12} sm={6} md={4} key={idx}>
@@ -61,5 +62,3 @@ function Favourites({ favourites, setFavourites }) {
     </Container>
   );
 }
-
-export default Favourites;

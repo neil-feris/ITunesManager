@@ -1,5 +1,9 @@
 // api.js contains the api route logic
+
+// import express
 const express = require("express");
+
+// use router
 const router = express.Router();
 
 // import baseURL from config

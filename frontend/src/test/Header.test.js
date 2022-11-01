@@ -1,7 +1,14 @@
 // Tests on the Header component
+// import React
 import React from "react";
+
+// import render and screen from testing library to render and query the component
 import { render, screen } from "@testing-library/react";
+
+// import Header
 import Header from "../components/Header";
+
+// test to check if the header renders correctly
 import { create } from "react-test-renderer";
 
 // snapshot test
