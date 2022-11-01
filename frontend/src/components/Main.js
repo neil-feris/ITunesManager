@@ -183,6 +183,7 @@ function Main({ favourites, setFavourites }) {
               }
             </Select>
             <Input
+              id="searchTerm"
               sx={{ m: 2 }}
               placeholder="Search"
               onChange={handleSearchTermChange}
@@ -193,7 +194,12 @@ function Main({ favourites, setFavourites }) {
                 }
               }}
             />
-            <Button sx={{ m: 2 }} variant="contained" onClick={handleSearch}>
+            <Button
+              id="searchButton"
+              sx={{ m: 2 }}
+              variant="contained"
+              onClick={handleSearch}
+            >
               Search
             </Button>
           </Grid>
