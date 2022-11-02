@@ -19,7 +19,6 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 
 export default function Result({ result, favourites, setFavourites }) {
-  console.log("result", result);
   // isFavourite checks if the result is in the favourites array depending on wrapperType
   const isFavourite = favourites.some(
     // if wrapperType is track, use trackId, if collection use collectionId, if artist use artistId
@@ -39,19 +38,33 @@ export default function Result({ result, favourites, setFavourites }) {
   );
 
   const handleFavourite = (result) => {
+    console.log("result", result);
+
     // check if result is already in favourites
     if (isFavourite) {
       // remove from favourites
       const newFavourites = favourites.filter((favourite) => {
-        if (result.wrapperType === "track")
+        if (
+          result.wrapperType === "track" ||
+          result.wrapperType === "software" ||
+          result.kind === "ebook"
+        )
           return favourite.trackId !== result.trackId;
         if (result.wrapperType === "collection")
           return favourite.collectionId !== result.collectionId;
-        if (result.wrapperType === "artist")
-          return favourite.artistId !== result.artistId;
+        if (result.wrapperType === "artist") {
+          // to avoid removing all songs from an artist we match wrapperType artist
+          if (
+            favourite.artistId === result.artistId &&
+            favourite.wrapperType === "artist"
+          )
+            return false;
+          return true;
+        }
         return false;
       });
       setFavourites(newFavourites); // update favourites state
+
       sessionStorage.setItem("favourites", JSON.stringify(newFavourites)); // update favourites in session storage
     } else {
       // add to favourites
@@ -90,7 +103,10 @@ export default function Result({ result, favourites, setFavourites }) {
       />
       {/* if artworkUrl100 is there */}
       {result.artworkUrl100 &&
-      (result.kind === "song" || result.collectionType === "Album") ? (
+      (result.kind === "song" ||
+        result.collectionType === "Album" ||
+        result.kind === "ebook" ||
+        result.wrapperType === "software") ? (
         <CardMedia
           component="img"
           height="270"
