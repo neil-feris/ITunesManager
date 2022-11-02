@@ -21,6 +21,11 @@ app.use(
           "https://*.mzstatic.com",
           "https://*.itunes.apple.com",
         ],
+        fontSrc: [
+          "'self'",
+          "https://fonts.gstatic.com",
+          "https://fonts.googleapis.com",
+        ],
       },
     },
     crossOriginEmbedderPolicy: false,
