@@ -10,10 +10,11 @@ app.use(
       useDefaults: false,
       directives: {
         defaultSrc: ["'self'", "'unsafe-inline'"],
-        fontSrc: [
+        styleSrc: [
           "'self'",
           "https://fonts.gstatic.com",
           "https://fonts.googleapis.com",
+          "'unsafe-inline'",
         ],
         imgSrc: [
           "'self'",
