@@ -17,7 +17,7 @@ app.use(
           "'unsafe-inline'",
         ],
         imgSrc: ["'self'", "https://*.mzstatic.com"],
-        mdeiaSrc: ["'self'", "https://*.itunes.apple.com"],
+        mediaSrc: ["'self'", "https://*.itunes.apple.com"],
         fontSrc: [
           "'self'",
           "https://fonts.gstatic.com",
