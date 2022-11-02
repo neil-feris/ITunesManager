@@ -6,7 +6,13 @@ const app = express();
 const helmet = require("helmet");
 app.use(
   helmet({
-    contentSecurityPolicy: false,
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: [
+          "default-src 'self'  https://fonts.googleapis.com  https://fonts.gstatic.com https://*.mzstatic.com https://*.itunes.apple.com 'unsafe-inline'",
+        ],
+      },
+    },
     crossOriginEmbedderPolicy: false,
   })
 );
