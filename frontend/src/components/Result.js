@@ -29,10 +29,25 @@ export default function Result({ result, favourites, setFavourites }) {
         result.kind === "ebook"
       )
         return favourite.trackId === result.trackId;
-      if (result.wrapperType === "collection")
-        return favourite.collectionId === result.collectionId;
-      if (result.wrapperType === "artist")
-        return favourite.artistId === result.artistId;
+      if (result.wrapperType === "collection") {
+        // don't match collection with individual tracks
+        if (
+          favourite.collectionId === result.collectionId &&
+          favourite.wrapperType === result.wrapperType
+        )
+          return true;
+        return false;
+      }
+      if (result.wrapperType === "artist") {
+        // Don't match artist with tracks by artist
+        if (
+          favourite.artistId === result.artistId &&
+          favourite.wrapperType === result.wrapperType
+        )
+          return true;
+        return false;
+      }
+
       return false;
     }
   );
@@ -50,8 +65,15 @@ export default function Result({ result, favourites, setFavourites }) {
           result.kind === "ebook"
         )
           return favourite.trackId !== result.trackId;
-        if (result.wrapperType === "collection")
-          return favourite.collectionId !== result.collectionId;
+        if (result.wrapperType === "collection") {
+          // to avoid removing all songs from a collection, check if collectionId is the same
+          if (
+            favourite.collectionId === result.collectionId &&
+            favourite.wrapperType === "collection"
+          )
+            return false;
+          return true;
+        }
         if (result.wrapperType === "artist") {
           // to avoid removing all songs from an artist we match wrapperType artist
           if (
