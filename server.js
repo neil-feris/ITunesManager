@@ -9,7 +9,12 @@ app.use(
     contentSecurityPolicy: {
       directives: {
         defaultSrc: [
-          "default-src 'self'  https://fonts.googleapis.com  https://fonts.gstatic.com https://*.mzstatic.com https://*.itunes.apple.com 'unsafe-inline'",
+          "'self'",
+          "https://fonts.googleapis.com",
+          "https://fonts.gstatic.com",
+          "https://*.mzstatic.com",
+          "https://*.itunes.apple.com",
+          "'unsafe-inline'",
         ],
       },
     },
