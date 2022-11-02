@@ -53,8 +53,6 @@ export default function Result({ result, favourites, setFavourites }) {
   );
 
   const handleFavourite = (result) => {
-    console.log("result", result);
-
     // check if result is already in favourites
     if (isFavourite) {
       // remove from favourites
