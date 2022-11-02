@@ -16,11 +16,8 @@ app.use(
           "https://fonts.googleapis.com",
           "'unsafe-inline'",
         ],
-        imgSrc: [
-          "'self'",
-          "https://*.mzstatic.com",
-          "https://*.itunes.apple.com",
-        ],
+        imgSrc: ["'self'", "https://*.mzstatic.com"],
+        mdeiaSrc: ["'self'", "https://*.itunes.apple.com"],
         fontSrc: [
           "'self'",
           "https://fonts.gstatic.com",
