@@ -15,7 +15,9 @@
   "name": "submission",
   "version": "1.0.0",
   "main": "server.js",
-  "keywords": [],
+  "keywords": [
+    "iTunes"
+  ],
   "author": "",
   "license": "ISC",
   "description": "",
