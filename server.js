@@ -6,6 +6,7 @@ const app = express();
 const helmet = require("helmet");
 app.use(
   helmet({
+    // Whitelist the following Content-Security-Policy directives for loading images, fonts and media previews
     contentSecurityPolicy: {
       useDefaults: false,
       directives: {
