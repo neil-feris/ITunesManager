@@ -7,6 +7,7 @@ const helmet = require("helmet");
 app.use(
   helmet({
     contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false,
   })
 );
 
