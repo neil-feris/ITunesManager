@@ -9,13 +9,16 @@ app.use(
     contentSecurityPolicy: {
       useDefaults: false,
       directives: {
-        defaultSrc: [
+        defaultSrc: ["'self'", "'unsafe-inline'"],
+        fontSrc: [
           "'self'",
-          "https://fonts.googleapis.com",
           "https://fonts.gstatic.com",
+          "https://fonts.googleapis.com",
+        ],
+        imgSrc: [
+          "'self'",
           "https://*.mzstatic.com",
           "https://*.itunes.apple.com",
-          "'unsafe-inline'",
         ],
       },
     },
