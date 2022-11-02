@@ -19,11 +19,16 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 
 export default function Result({ result, favourites, setFavourites }) {
+  console.log("result", result);
   // isFavourite checks if the result is in the favourites array depending on wrapperType
   const isFavourite = favourites.some(
     // if wrapperType is track, use trackId, if collection use collectionId, if artist use artistId
     (favourite) => {
-      if (result.wrapperType === "track")
+      if (
+        result.wrapperType === "track" ||
+        result.wrapperType === "software" ||
+        result.kind === "ebook"
+      )
         return favourite.trackId === result.trackId;
       if (result.wrapperType === "collection")
         return favourite.collectionId === result.collectionId;
