@@ -28,7 +28,7 @@ You can run `npm test` in frontend and backend directories to run the tests.
 ## Security
 
 No API keys are required to use the API. If required, you can add your own API key to the `config.js` file in the backend directory.
-Helmet is used to secure the Express server by set security related headers.
+Helmet is used to secure the Express server by setting security related headers.
 
 ## Demo
 
