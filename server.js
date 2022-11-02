@@ -25,7 +25,7 @@ app.use(
         ],
       },
     },
-    crossOriginEmbedderPolicy: false,
+    crossOriginEmbedderPolicy: true,
   })
 );
 
