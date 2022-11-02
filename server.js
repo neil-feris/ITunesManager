@@ -4,7 +4,11 @@ const app = express();
 
 // import helmet
 const helmet = require("helmet");
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+);
 
 // import path
 const path = require("path");
