@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
     "test": "mocha",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
@@ -9,8 +9,8 @@
     "helmet": "6.0.0"
   },
   "engines": {
-    "node": "18.10.0",
-    "npm": "8.19.2"
+    "node": "^18",
+    "npm": "^8"
   },
   "name": "submission",
   "version": "1.0.0",
